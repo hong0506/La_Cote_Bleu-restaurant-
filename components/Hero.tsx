@@ -1,0 +1,104 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import { Button } from './ui/button'
+import { Anchor, Waves } from 'lucide-react'
+
+export function Hero() {
+  // Create floating particles
+  const particles = Array.from({ length: 20 }, (_, i) => i)
+  
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-navy via-navy-600 to-navy-500">
+      {/* Animated background pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8A877' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
+      </div>
+
+      {/* Floating particles */}
+      {particles.map((i) => (
+        <motion.div
+          key={i}
+          className="absolute w-2 h-2 bg-gold rounded-full opacity-20"
+          initial={{
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+          }}
+          animate={{
+            y: [null, Math.random() * window.innerHeight],
+            x: [null, Math.random() * window.innerWidth],
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{
+            duration: Math.random() * 10 + 10,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      ))}
+
+      {/* Animated wave decoration */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 opacity-10"
+        animate={{
+          y: [0, -10, 0],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <svg viewBox="0 0 1440 320" className="w-full">
+          <path
+            fill="currentColor"
+            className="text-gold"
+            d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,106.7C1248,96,1344,96,1392,96L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          />
+        </svg>
+      </motion.div>
+
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="mb-8"
+        >
+          {/* Logo */}
+          <div className="inline-flex items-center justify-center w-32 h-32 mb-6 bg-navy-700 rounded-full border-4 border-gold shadow-2xl">
+            <Anchor className="w-16 h-16 text-gold" strokeWidth={1.5} />
+          </div>
+          
+          <h1 className="font-serif text-5xl md:text-7xl font-bold text-cream mb-4">
+            La Côte Bleu
+          </h1>
+          
+          <p className="text-2xl md:text-3xl text-gold-200 font-light mb-3">
+            Coastal French Cuisine, Made With Heart.
+          </p>
+          
+          <p className="text-lg text-cream-400 italic">
+            Inspired by the sea. Rooted in French tradition.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        >
+          <Button size="lg" onClick={() => document.getElementById('reservations')?.scrollIntoView({ behavior: 'smooth' })}>
+            Reservations
+          </Button>
+          <Button size="lg" variant="outline" onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}>
+            View Menu
+          </Button>
+        </motion.div>
+      </div>
+    </section>
+  )
+}

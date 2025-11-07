@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-cream text-navy antialiased;
+  }
+  
+  .font-serif {
+    font-family: var(--font-cormorant), serif;
+  }
+  
+  .font-sans {
+    font-family: var(--font-inter), sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
