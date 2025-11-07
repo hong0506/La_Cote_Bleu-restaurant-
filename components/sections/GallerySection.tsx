@@ -19,15 +19,16 @@ const galleryImages = [
 export function GallerySection() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
 
-  // Prevent body scroll when lightbox is open
+  // Prevent scrolling when lightbox is open
   useEffect(() => {
+    if (typeof window === 'undefined') return
+    
     if (selectedImage !== null) {
       // Prevent scrolling
       const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
       document.body.style.overflow = 'hidden'
       document.body.style.paddingRight = `${scrollBarWidth}px`
     } else {
-      // Restore scrolling
       document.body.style.overflow = ''
       document.body.style.paddingRight = ''
     }

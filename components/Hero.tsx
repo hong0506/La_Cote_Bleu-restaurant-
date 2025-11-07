@@ -14,6 +14,9 @@ export function Hero() {
   const opacityParallax = useTransform(scrollY, [0, 300], [1, 0])
   
   useEffect(() => {
+    // 仅在客户端执行
+    if (typeof window === 'undefined') return
+    
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
@@ -43,18 +46,18 @@ export function Hero() {
           key={i}
           className="absolute w-2 h-2 bg-gold rounded-full opacity-20"
           initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: `${Math.random() * 100}%`,
+            y: `${Math.random() * 100}%`,
           }}
           animate={{
-            y: [null, Math.random() * window.innerHeight],
-            x: [null, Math.random() * window.innerWidth],
+            y: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
+            x: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
             opacity: [0.2, 0.5, 0.2],
           }}
           transition={{
             duration: Math.random() * 10 + 10,
             repeat: Infinity,
-            ease: "linear",
+            repeatType: 'reverse',
           }}
         />
       ))}

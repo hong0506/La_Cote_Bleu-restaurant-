@@ -41,15 +41,16 @@ type MenuType = 'dinner' | 'wine' | 'specials' | null
 export function MenuSection() {
   const [selectedMenu, setSelectedMenu] = useState<MenuType>(null)
 
-  // Prevent body scroll when modal is open
+  // Prevent scrolling when modal is open
   useEffect(() => {
+    if (typeof window === 'undefined') return
+    
     if (selectedMenu) {
       // Prevent scrolling
       const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
       document.body.style.overflow = 'hidden'
       document.body.style.paddingRight = `${scrollBarWidth}px`
     } else {
-      // Restore scrolling
       document.body.style.overflow = ''
       document.body.style.paddingRight = ''
     }

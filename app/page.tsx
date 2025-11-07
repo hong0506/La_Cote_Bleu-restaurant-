@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic'
 import { Hero } from '@/components/Hero'
 import { AboutSection } from '@/components/sections/AboutSection'
 import { MenuSection } from '@/components/sections/MenuSection'
@@ -6,11 +7,13 @@ import { GallerySection } from '@/components/sections/GallerySection'
 import { VisitSection } from '@/components/sections/VisitSection'
 import { Footer } from '@/components/Footer'
 import { SectionDivider } from '@/components/SectionDivider'
-import { PageLoader } from '@/components/PageLoader'
-import { ScrollProgress } from '@/components/ScrollProgress'
-import { FloatingNav } from '@/components/FloatingNav'
-import { CursorFollower } from '@/components/CursorFollower'
-import { BackToTop } from '@/components/BackToTop'
+
+// 动态导入客户端组件，禁用SSR
+const PageLoader = dynamic(() => import('@/components/PageLoader').then(mod => ({ default: mod.PageLoader })), { ssr: false })
+const ScrollProgress = dynamic(() => import('@/components/ScrollProgress').then(mod => ({ default: mod.ScrollProgress })), { ssr: false })
+const FloatingNav = dynamic(() => import('@/components/FloatingNav').then(mod => ({ default: mod.FloatingNav })), { ssr: false })
+const CursorFollower = dynamic(() => import('@/components/CursorFollower').then(mod => ({ default: mod.CursorFollower })), { ssr: false })
+const BackToTop = dynamic(() => import('@/components/BackToTop').then(mod => ({ default: mod.BackToTop })), { ssr: false })
 
 export default function Home() {
   return (

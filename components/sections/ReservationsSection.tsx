@@ -36,15 +36,15 @@ export function ReservationsSection() {
                 <Button 
                   size="lg" 
                   className="flex-1"
-                  onClick={() => window.open('https://www.opentable.com', '_blank')}
+                  onClick={() => typeof window !== 'undefined' && window.open('https://www.opentable.com', '_blank')}
                 >
                   Book on OpenTable
                 </Button>
-                <Button
+                <Button 
                   size="lg"
                   variant="outline"
                   className="flex-1 border-cream-300 text-cream-300 hover:bg-cream-300 hover:text-navy"
-                  onClick={() => window.location.href = 'tel:+18315551234'}
+                  onClick={() => typeof window !== 'undefined' && (window.location.href = 'tel:+18315551234')}
                 >
                   Call to Reserve
                 </Button>

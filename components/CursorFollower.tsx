@@ -8,6 +8,8 @@ export function CursorFollower() {
   const [isHovering, setIsHovering] = useState(false)
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
+    
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }

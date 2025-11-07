@@ -8,6 +8,8 @@ export function BackToTop() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
+    
     const toggleVisibility = () => {
       setIsVisible(window.scrollY > 500)
     }
@@ -17,10 +19,12 @@ export function BackToTop() {
   }, [])
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+    }
   }
 
   return (

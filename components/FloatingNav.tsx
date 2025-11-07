@@ -17,6 +17,9 @@ export function FloatingNav() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
+    // 仅在客户端执行
+    if (typeof window === 'undefined') return
+    
     const handleScroll = () => {
       // Show nav after scrolling 300px
       setIsVisible(window.scrollY > 300)
