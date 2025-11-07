@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { SectionHeader } from '../SectionHeader'
-import { Waves, Fish, Anchor, Shell } from 'lucide-react'
+import { Waves, Fish, Anchor, Shell, Award, Users, Star } from 'lucide-react'
+import { AnimatedCounter } from '../AnimatedCounter'
 
 export function AboutSection() {
   // Floating animation variants
@@ -184,6 +185,40 @@ export function AboutSection() {
             <div className="absolute bottom-4 right-4 w-12 h-12 border-r-2 border-b-2 border-gold opacity-40" />
           </motion.div>
         </div>
+
+        {/* Statistics Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-20 border-t border-navy-200"
+        >
+          {[
+            { icon: Award, value: 15, suffix: '+', label: 'Awards Won' },
+            { icon: Users, value: 50, suffix: 'K+', label: 'Happy Guests' },
+            { icon: Star, value: 4.9, suffix: '/5', label: 'Average Rating' },
+            { icon: Fish, value: 100, suffix: '%', label: 'Fresh Seafood' },
+          ].map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="text-center"
+            >
+              <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-gold/10 rounded-full">
+                <stat.icon className="w-8 h-8 text-gold" />
+              </div>
+              <div className="font-serif text-4xl font-bold text-navy mb-2">
+                <AnimatedCounter end={stat.value} suffix={stat.suffix} duration={2.5} />
+              </div>
+              <p className="text-navy-500">{stat.label}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   )

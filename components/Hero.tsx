@@ -1,10 +1,30 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from './ui/button'
-import { Anchor, Waves } from 'lucide-react'
+import { Anchor, Waves, ChevronDown } from 'lucide-react'
 
 export function Hero() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const { scrollY } = useScroll()
+  
+  // Parallax effects
+  const yParallax = useTransform(scrollY, [0, 500], [0, 150])
+  const opacityParallax = useTransform(scrollY, [0, 300], [1, 0])
+  
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20,
+      })
+    }
+    
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+  
   // Create floating particles
   const particles = Array.from({ length: 20 }, (_, i) => i)
   
@@ -60,17 +80,31 @@ export function Hero() {
         </svg>
       </motion.div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <motion.div 
+        className="relative z-10 max-w-5xl mx-auto px-6 text-center"
+        style={{ 
+          y: yParallax,
+          opacity: opacityParallax,
+        }}
+      >
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           className="mb-8"
         >
-          {/* Logo */}
-          <div className="inline-flex items-center justify-center w-32 h-32 mb-6 bg-navy-700 rounded-full border-4 border-gold shadow-2xl">
+          {/* Logo with mouse parallax */}
+          <motion.div 
+            className="inline-flex items-center justify-center w-32 h-32 mb-6 bg-navy-700 rounded-full border-4 border-gold shadow-2xl"
+            animate={{
+              rotateY: mousePosition.x,
+              rotateX: -mousePosition.y,
+            }}
+            transition={{ type: "spring", stiffness: 100, damping: 10 }}
+            style={{ transformStyle: "preserve-3d" }}
+          >
             <Anchor className="w-16 h-16 text-gold" strokeWidth={1.5} />
-          </div>
+          </motion.div>
           
           <h1 className="font-serif text-5xl md:text-7xl font-bold text-cream mb-4">
             La Côte Bleu
@@ -98,7 +132,7 @@ export function Hero() {
             View Menu
           </Button>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   )
 }

@@ -127,38 +127,38 @@ export function MenuSection() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-cream rounded-lg max-w-3xl w-full max-h-[80vh] overflow-y-auto p-8 relative"
+              className="bg-cream rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 md:p-10 relative shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setSelectedMenu(null)}
-                className="absolute top-4 right-4 text-navy hover:text-gold transition-colors"
+                className="absolute top-4 right-4 text-navy hover:text-gold transition-colors z-10 bg-cream/80 backdrop-blur-sm rounded-full p-2"
               >
-                <X className="w-8 h-8" />
+                <X className="w-6 h-6" />
               </button>
 
-              <h2 className="font-serif text-4xl font-bold text-navy mb-8">
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-navy mb-10 pr-12">
                 {getMenuTitle(selectedMenu)}
               </h2>
 
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {getMenuItems(selectedMenu).map((item, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="border-b border-navy-200 pb-4 last:border-0"
+                    className="border-b border-navy-200 pb-6 last:border-0 last:pb-0"
                   >
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-serif text-xl font-semibold text-navy">
+                    <div className="flex justify-between items-start gap-4 mb-3">
+                      <h3 className="font-serif text-xl md:text-2xl font-semibold text-navy leading-tight">
                         {item.name}
                       </h3>
                       {item.price && (
-                        <span className="text-gold font-medium">{item.price}</span>
+                        <span className="text-gold font-medium text-lg whitespace-nowrap">{item.price}</span>
                       )}
                     </div>
-                    <p className="text-navy-500">{item.description}</p>
+                    <p className="text-navy-500 text-base md:text-lg leading-relaxed">{item.description}</p>
                   </motion.div>
                 ))}
               </div>
